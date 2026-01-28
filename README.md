@@ -1,6 +1,6 @@
 # OpenEngine
 
-An open-source multimodal AI engine that extends text-based AI chatbots with voice, vision, and speech capabilities.
+An open-source multimodal AI engine that extends text-based AI chatbots with voice, vision, and speech capabilities. CURRENTLY ONLY AVAILABLE ON MACOS!!!
 
 ## Overview
 
