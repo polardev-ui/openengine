@@ -1,0 +1,8 @@
+# TO-DO List
+## This is mainly just for me to jot down stuff I should do next with OpenEngine.s
+
+1. Create a core module which syncs the voice, audio, etc. modules together into one "lib" (MEDIUM PRIORITY)
+2. Give "Maya" a body, a face, and more capabilities such as running its own commands when deemed necessary based off what the user says, for example, a user says "maya open up that messages app" (different from accepted syntax by default) the AI should automatically detect what the user meant and use tools/capabilities accordingly. (LOW PRIORITY)
+3. Create a new /beta subfolder in the root with all of the same files, but instead of using Microsoft TTS voice generation, use Kokoro TTS (ran locally) for a more realistic voice with breathing, stuttering, detection of the way the user talks, just to imitate the user for a sense of warmth and connection between user and algorithm. (HIGH PRIORITY)
+4. Make a Windows compatable version, so Windows users can use Maya, and all future OpenEngine models. (HIGH PRIORITY)
+5. Allow all different types of users to access OpenEngine, from a website. Have the OpenEngine script stored somewhere, and have it be hosted on something like Render for free, and start up automatically when a new user wants to use OpenEngine. Limit the demo on the website to 5 minutes, longer access either running locally or paying for it, $5 a month, and you can get unlimited access to OpenEngine. Warn users of hallucinations. On the website, show some sort of VM demo as well, so you can see Maya working in real time, opening apps, looking at your camera, etc. (LOW PRIORITY)
