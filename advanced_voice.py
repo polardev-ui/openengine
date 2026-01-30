@@ -1,9 +1,6 @@
-#!/usr/bin/env python3.11
-
 import pyttsx3
 import threading
 import queue
-
 
 class AdvancedVoiceEngine:
     def __init__(self):

@@ -1,8 +1,3 @@
-"""
-Download YOLO model files for advanced object detection.
-This will download YOLOv3-tiny which is fast and accurate for real-time detection.
-"""
-
 import urllib.request
 import os
 import sys

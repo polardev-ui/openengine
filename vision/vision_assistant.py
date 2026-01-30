@@ -1,5 +1,3 @@
-#!/usr/bin/env python3.11
-
 import requests
 import json
 from typing import Optional
@@ -27,7 +25,6 @@ MODEL = 'llama-3.1-8b-instant'
 MAX_TOKENS = 2048
 TEMPERATURE = 0.7
 
-
 class VisionAssistant:
     def __init__(self):
         self.audio = pyaudio.PyAudio()
@@ -51,7 +48,7 @@ class VisionAssistant:
         
         self.vision_engine = CustomVisionEngine()
         self.human_voice = HumanVoiceEngine()
-        self.voice_engine = EmotionalVoiceEngine(voice='en-US-AvaMultilingualNeural')  # Young, enthusiastic
+        self.voice_engine = EmotionalVoiceEngine(voice='en-US-AvaMultilingualNeural')  
         
         print("Vision assistant initialized!")
     
@@ -337,15 +334,13 @@ class VisionAssistant:
     
     def _open_url(self, url: str) -> bool:
         try:
-            if self.os_type == 'Darwin':
-                applescript = f'''
-                tell application "Safari"
-                    activate
-                    open location "{url}"
-                end tell
-                '''
+            if self.os_type == 'Darwin':  
+                applescript = f
                 subprocess.run(['osascript', '-e', applescript], check=True)
-            else:
+            elif self.os_type == 'Windows':  
+                import webbrowser
+                webbrowser.open(url)
+            else:  
                 subprocess.run(['xdg-open', url], check=True)
             return True
         except Exception as e:
@@ -354,9 +349,27 @@ class VisionAssistant:
     
     def _open_application(self, app_name: str) -> bool:
         try:
-            if self.os_type == 'Darwin':
+            if self.os_type == 'Darwin':  
                 subprocess.run(['open', '-a', app_name], check=True)
-            else:
+            elif self.os_type == 'Windows':  
+                
+                windows_apps = {
+                    'Messages': 'start ms-chat:',
+                    'Mail': 'start outlookmail:',
+                    'Safari': 'start msedge:',
+                    'Chrome': 'start chrome',
+                    'Firefox': 'start firefox',
+                    'Notes': 'start onenote:',
+                    'Calculator': 'calc.exe',
+                    'Notepad': 'notepad.exe',
+                    'File Explorer': 'explorer.exe',
+                    'Settings': 'start ms-settings:',
+                    'Microsoft Edge': 'start msedge:',
+                }
+
+                windows_cmd = windows_apps.get(app_name, f'start {app_name}')
+                subprocess.run(windows_cmd, shell=True, check=True)
+            else:  
                 subprocess.run([app_name], check=True)
             return True
         except Exception as e:
@@ -488,7 +501,6 @@ class VisionAssistant:
         self.stop_camera()
         self.audio.terminate()
 
-
 def main():
     assistant = None
     try:
@@ -504,7 +516,6 @@ def main():
         if assistant:
             assistant.cleanup()
         sys.exit(0)
-
 
 if __name__ == "__main__":
     main()

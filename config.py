@@ -1,4 +1,3 @@
-
 API_KEY = 'api_76o5jqwkjq45zowrj0r8j2dk72a1c4a8'
 API_BASE_URL = 'https://api.wsgpolar.me/v1/ai/chat'
 

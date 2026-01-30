@@ -69,10 +69,25 @@ Integrated multimodal assistant combining:
 ## Installation
 
 ### Prerequisites
-**Python 3.11 is required** for the advanced voice engine (pyttsx3).
+**Python 3.11 is required** for the advanced voice engine (Edge TTS).
 
+#### macOS
 ```bash
 brew install portaudio
+```
+
+#### Windows
+See [windows/WINDOWS_INSTALL.md](windows/WINDOWS_INSTALL.md) for detailed Windows setup instructions.
+
+Quick setup:
+```powershell
+cd windows
+setup.bat
+```
+
+#### Linux
+```bash
+sudo apt-get install portaudio19-dev
 ```
 
 ### Python Dependencies

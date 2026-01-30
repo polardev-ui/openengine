@@ -4,7 +4,6 @@ from typing import Dict, List, Optional
 import os
 import random
 
-
 class CustomVisionEngine:
     def __init__(self):
         self.face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
@@ -377,4 +376,3 @@ class CustomVisionEngine:
                 return "VISION: No people or objects currently detected in frame"
         
         return "VISION: " + " | ".join(parts)
-

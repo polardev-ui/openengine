@@ -12,7 +12,7 @@ import time
 import re
 import random
 from human_voice import HumanVoiceEngine
-from emotional_voice import EmotionalVoiceEngine
+from realistic_voice import RealisticVoiceEngine  
 
 API_KEY = 'api_76o5jqwkjq45zowrj0r8j2dk72a1c4a8'
 API_URL = f'https://api.wsgpolar.me/v1/ai/chat?API={API_KEY}'
@@ -36,9 +36,10 @@ class VoiceAssistant:
         self.interrupt_speech = False
         
         self.human_voice = HumanVoiceEngine()
-        self.voice_engine = EmotionalVoiceEngine(voice='en-US-AvaMultilingualNeural')  
+        self.voice_engine = RealisticVoiceEngine(voice='en-US-AriaNeural', style='chat', speed=1.05)  
         
         print("Voice assistant initialized!")
+        print("🎙️  BETA VERSION - Enhanced Realistic Voice (Sesame AI quality)")
     
     def listen(self) -> Optional[str]:
         print("\n🎤 Listening... (speak now)")
@@ -308,9 +309,10 @@ class VoiceAssistant:
     
     def run(self):
         print("\n" + "="*60)
-        print("🎙️  OPENENGINE - AI VOICE ASSISTANT")
+        print("🎙️  OPENENGINE - AI VOICE ASSISTANT (BETA)")
         print("="*60)
         print("\nBuilt by OpenEngine")
+        print("⚡ BETA: Using Kokoro TTS (Edge TTS fallback mode)")
         print("\nCommands:")
         print("  - Say 'exit', 'quit', or 'stop' to end the conversation")
         print("  - Say 'show me [website]' or 'open [app]' for computer control")
@@ -318,7 +320,7 @@ class VoiceAssistant:
         print("  - Recording auto-stops after 1.5 seconds of silence")
         print("\n" + "="*60 + "\n")
         
-        self.speak("Hi! I'm Maya, one of the many models available from OpenEngine. How may I help you?")
+        self.speak("Hi! I'm Maya, beta version. I'm testing new voice technology that runs locally on your computer!")
         
         while True:
             if self.is_speaking:
