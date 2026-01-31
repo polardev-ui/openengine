@@ -1,6 +1,6 @@
 # OpenEngine
 
-An open-source multimodal AI engine that extends text-based AI chatbots with voice, vision, and speech capabilities. CURRENTLY ONLY AVAILABLE ON MACOS!!!
+An open-source multimodal AI engine that extends text-based AI chatbots with voice, vision, and speech capabilities.
 
 ## Overview
 
@@ -21,7 +21,8 @@ Core voice interaction system with:
 - Configurable silence detection
 - Speech interruption handling
 - System integration for opening applications and URLs
-- Natural language text-to-speech output
+- **Realistic Google TTS voice** - Natural-sounding speech that's far more human than system voices
+- **Human-like personality engine** with casual speech patterns, filler words, and natural pauses
 
 ### 2. Vision Engine (`vision/custom_vision.py`)
 Advanced computer vision pipeline featuring:
@@ -68,26 +69,28 @@ Integrated multimodal assistant combining:
 ## Installation
 
 ### Prerequisites
+**Python 3.11 is required** for the advanced voice engine (pyttsx3).
+
 ```bash
 brew install portaudio
 ```
 
 ### Python Dependencies
 ```bash
-pip install -r requirements.txt
+python3.11 -m pip install -r requirements.txt
 ```
 
 For vision capabilities:
 ```bash
 cd vision
-pip install -r requirements.txt
+python3.11 -m pip install -r requirements.txt
 ```
 
 ### YOLO Model Setup
 Download YOLOv3-tiny weights and configuration:
 ```bash
 cd vision
-python3 download_yolo.py
+python3.11 download_yolo.py
 ```
 
 Or manually download:
@@ -120,8 +123,8 @@ python3 vision_assistant.py
 ### API Configuration
 Edit `voice_assistant.py` or `vision/vision_assistant.py`:
 ```python
-API_KEY = 'your_api_key' (Obtainable from my API https://api.wsgpolar.me/ for $5 a month, you get access to 20+ AI models)
-API_URL = 'your_api_endpoint' (Preferrably have this set as my custom API Url already set)
+API_KEY = 'your_api_key'
+API_URL = 'your_api_endpoint'
 MODEL = 'your_model_name'
 ```
 

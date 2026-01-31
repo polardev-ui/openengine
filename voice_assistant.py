@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+#!/usr/bin/env python3.11
+
 import requests
 import json
 from typing import Optional
@@ -13,6 +15,8 @@ import threading
 import time
 import re
 import random
+from human_voice import HumanVoiceEngine
+from realistic_voice import RealisticVoiceEngine
 
 API_KEY = 'api_76o5jqwkjq45zowrj0r8j2dk72a1c4a8'
 API_URL = f'https://api.wsgpolar.me/v1/ai/chat?API={API_KEY}'
@@ -35,6 +39,9 @@ class VoiceAssistant:
         self.is_speaking = False
         self.speech_process = None
         self.interrupt_speech = False
+        
+        self.human_voice = HumanVoiceEngine()
+        self.voice_engine = RealisticVoiceEngine(tld='com')  # US accent, can change to 'co.uk', 'com.au', 'ca'
         
         print("Voice assistant initialized!")
     
@@ -131,7 +138,7 @@ class VoiceAssistant:
             messages = [
                 {
                     'role': 'system',
-                    'content': 'You are Maya, a helpful voice assistant. Keep responses conversational and concise (1-3 sentences). Never use markdown formatting. Speak naturally as if having a conversation.'
+                    'content': 'You are Maya, a friendly young adult AI assistant. Speak naturally like a real person in casual conversation - use contractions (I\'m, you\'re, don\'t), be enthusiastic and warm. Keep responses brief (1-2 sentences). Avoid formal or robotic language. Be helpful but personable. Never use markdown formatting.'
                 },
                 {
                     'role': 'user',
@@ -157,6 +164,7 @@ class VoiceAssistant:
             data = response.json()
             
             ai_message = data['choices'][0]['message']['content']
+            ai_message = self.human_voice.make_conversational(ai_message, user_message)
             print(f"💬 Maya: {ai_message}")
             return ai_message
             
@@ -280,25 +288,12 @@ class VoiceAssistant:
         
         try:
             print("🔊 Speaking...")
-            
-            if self.os_type == 'Darwin':
-                self.speech_process = subprocess.Popen(
-                    ['say', '-v', 'Samantha', '-r', '180', text],
-                    stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL
-                )
-                self.speech_process.wait()
-            else:
-                print(f"💬 Maya: {text}")
-        except FileNotFoundError:
-            print(f"💬 Maya: {text}")
+            self.voice_engine.speak(text)
         except Exception as e:
-            if not self.interrupt_speech:
-                print(f"❌ Error during text-to-speech: {e}")
-                print(f"💬 Maya: {text}")
+            print(f"❌ Error during text-to-speech: {e}")
+            print(f"💬 Maya: {text}")
         finally:
             self.is_speaking = False
-            self.speech_process = None
     
     def run(self):
         print("\n" + "="*60)
@@ -385,14 +380,14 @@ class VoiceAssistant:
             pass
     
     def stop_speaking(self):
-        if self.is_speaking and self.speech_process:
+        if self.is_speaking:
             self.interrupt_speech = True
-            self.speech_process.terminate()
-            self.speech_process.wait()
+            self.voice_engine.stop()
             print("\n⏹️  Speech interrupted")
     
     def cleanup(self):
         self.stop_speaking()
+        self.voice_engine.stop()
         self.audio.terminate()
 
 

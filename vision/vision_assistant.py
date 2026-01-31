@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.11
 
 import requests
 import json
@@ -16,6 +16,10 @@ import random
 import cv2
 import numpy as np
 from custom_vision import CustomVisionEngine
+import os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from human_voice import HumanVoiceEngine
+from realistic_voice import RealisticVoiceEngine
 
 API_KEY = 'api_76o5jqwkjq45zowrj0r8j2dk72a1c4a8'
 API_URL = f'https://api.wsgpolar.me/v1/ai/chat?API={API_KEY}'
@@ -46,6 +50,8 @@ class VisionAssistant:
         self.preview_thread = None
         
         self.vision_engine = CustomVisionEngine()
+        self.human_voice = HumanVoiceEngine()
+        self.voice_engine = RealisticVoiceEngine(tld='com')  # US accent
         
         print("Vision assistant initialized!")
     
@@ -208,7 +214,7 @@ class VisionAssistant:
     
     def get_ai_response(self, user_message: str, vision_context: Optional[str] = None) -> Optional[str]:
         try:
-            system_prompt = 'You are Maya, a helpful AI assistant with vision capabilities. Keep responses conversational and concise (1-3 sentences). Never use markdown formatting. Speak naturally as if having a conversation.'
+            system_prompt = 'You are Maya, a friendly young adult AI assistant with vision capabilities. Speak naturally like a real person - use contractions, be enthusiastic and warm. Keep responses brief (1-2 sentences). Avoid formal or robotic language. Never use markdown formatting.'
             
             if vision_context:
                 system_prompt += f' Current camera view analysis: {vision_context}. CRITICAL: Only describe what is explicitly listed in the analysis. Do NOT invent, assume, or hallucinate any objects, people, measurements, or details not present in the data. If no objects are detected, simply describe the lighting and colors. Never make up specific measurements or object names.'
@@ -242,6 +248,7 @@ class VisionAssistant:
             data = response.json()
             
             ai_message = data['choices'][0]['message']['content']
+            ai_message = self.human_voice.make_conversational(ai_message, user_message)
             print(f"💬 Maya: {ai_message}")
             return ai_message
             
@@ -365,25 +372,12 @@ class VisionAssistant:
         
         try:
             print("🔊 Speaking...")
-            
-            if self.os_type == 'Darwin':
-                self.speech_process = subprocess.Popen(
-                    ['say', '-v', 'Samantha', '-r', '180', text],
-                    stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL
-                )
-                self.speech_process.wait()
-            else:
-                print(f"💬 Maya: {text}")
-        except FileNotFoundError:
-            print(f"💬 Maya: {text}")
+            self.voice_engine.speak(text)
         except Exception as e:
-            if not self.interrupt_speech:
-                print(f"❌ Error during text-to-speech: {e}")
-                print(f"💬 Maya: {text}")
+            print(f"❌ Error during text-to-speech: {e}")
+            print(f"💬 Maya: {text}")
         finally:
             self.is_speaking = False
-            self.speech_process = None
     
     def run(self):
         print("\n" + "="*60)
@@ -483,14 +477,14 @@ class VisionAssistant:
             pass
     
     def stop_speaking(self):
-        if self.is_speaking and self.speech_process:
+        if self.is_speaking:
             self.interrupt_speech = True
-            self.speech_process.terminate()
-            self.speech_process.wait()
+            self.voice_engine.stop()
             print("\n⏹️  Speech interrupted")
     
     def cleanup(self):
         self.stop_speaking()
+        self.voice_engine.cleanup()
         self.stop_camera()
         self.audio.terminate()
 
