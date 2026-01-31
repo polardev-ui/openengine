@@ -1,0 +1,14 @@
+
+API_KEY = 'api_76o5jqwkjq45zowrj0r8j2dk72a1c4a8'
+API_BASE_URL = 'https://api.wsgpolar.me/v1/ai/chat'
+
+MODEL = 'llama-3.1-8b-instant'
+MAX_TOKENS = 2048
+TEMPERATURE = 0.7
+
+SPEECH_RATE = 175
+VOICE_VOLUME = 0.9
+
+AMBIENT_NOISE_DURATION = 2
+LISTEN_TIMEOUT = 5
+PHRASE_TIME_LIMIT = 10
