@@ -1,4 +1,4 @@
 requests==2.31.0
 PyAudio==0.2.14
-gtts==2.5.4
+edge-tts==7.2.7
 pygame==2.6.1

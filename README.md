@@ -21,7 +21,7 @@ Core voice interaction system with:
 - Configurable silence detection
 - Speech interruption handling
 - System integration for opening applications and URLs
-- **Realistic Google TTS voice** - Natural-sounding speech that's far more human than system voices
+- **Emotional AI Voice** - Ultra-realistic Microsoft Edge TTS with natural enthusiasm and expression
 - **Human-like personality engine** with casual speech patterns, filler words, and natural pauses
 
 ### 2. Vision Engine (`vision/custom_vision.py`)

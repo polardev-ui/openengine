@@ -16,7 +16,7 @@ import time
 import re
 import random
 from human_voice import HumanVoiceEngine
-from realistic_voice import RealisticVoiceEngine
+from emotional_voice import EmotionalVoiceEngine
 
 API_KEY = 'api_76o5jqwkjq45zowrj0r8j2dk72a1c4a8'
 API_URL = f'https://api.wsgpolar.me/v1/ai/chat?API={API_KEY}'
@@ -41,7 +41,7 @@ class VoiceAssistant:
         self.interrupt_speech = False
         
         self.human_voice = HumanVoiceEngine()
-        self.voice_engine = RealisticVoiceEngine(tld='com')  # US accent, can change to 'co.uk', 'com.au', 'ca'
+        self.voice_engine = EmotionalVoiceEngine(voice='en-US-AvaMultilingualNeural')  # Young, enthusiastic, natural
         
         print("Voice assistant initialized!")
     
